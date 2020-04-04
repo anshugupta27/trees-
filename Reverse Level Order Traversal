@@ -1,0 +1,90 @@
+ Reverse Level Order Traversal
+
+using namespace std;
+
+struct Node
+{
+	int data;
+	struct Node *left;
+	struct Node *right;
+	
+	Node(int x){
+	    data = x;
+	    left = NULL;
+	    right = NULL;
+	}
+};
+
+void reversePrint(Node *root);
+
+
+int main()
+{
+   int t;
+  scanf("%d\n", &t);
+  while (t--)
+  {
+     map<int, Node*> m;
+     int n;
+     scanf("%d\n",&n);
+     Node *root = NULL;
+     while (n--)
+     {
+        Node *parent;
+        char lr;
+        int n1, n2;
+        scanf("%d %d %c", &n1, &n2, &lr);
+      //  cout << n1 << " " << n2 << " " << (char)lr << endl;
+        if (m.find(n1) == m.end())
+        {
+           parent = new Node(n1);
+           m[n1] = parent;
+           if (root == NULL)
+             root = parent;
+        }
+        else
+           parent = m[n1];
+
+        Node *child = new Node(n2);
+        if (lr == 'L')
+          parent->left = child;
+        else
+          parent->right = child;
+        m[n2]  = child;
+     }
+
+   reversePrint(root);
+   cout<<endl;
+
+  }
+    return 0;
+}
+
+
+
+
+void reversePrint(Node *root)
+{
+    queue<Node*>q;
+    stack<Node*>s;
+    Node*curr=new Node(0);
+    q.push(root);
+    while(!q.empty())
+    {
+        curr=q.front();
+        s.push(q.front());
+        q.pop();
+        if(curr->right!=NULL)
+        q.push(curr->right);
+        if(curr->left!=NULL)
+        q.push(curr->left);
+        
+        
+    }
+    while(!s.empty())
+    {
+        curr=s.top();
+        cout<<curr->data<<" ";
+        s.pop();
+    }
+}
