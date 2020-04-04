@@ -1,0 +1,101 @@
+ Maximum Width of Tree 
+
+using namespace std;
+
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+
+int getMaxWidth(Node* root);
+
+
+int main()
+{
+  int t;
+  struct Node *child;
+  scanf("%d\n", &t);
+  while (t--)
+  {
+     map<int, Node*> m;
+     int n;
+     scanf("%d",&n);
+     struct Node *root = NULL;
+     while (n--)
+     {
+        Node *parent;
+        char lr;
+        int n1, n2;
+        scanf("%d %d %c", &n1, &n2, &lr);
+
+        if (m.find(n1) == m.end())
+        {
+           parent = new Node(n1);
+           m[n1] = parent;
+           if (root == NULL)
+             root = parent;
+        }
+        else
+           parent = m[n1];
+
+        child = new Node(n2);
+        if (lr == 'L')
+          parent->left = child;
+        else
+          parent->right = child;
+        m[n2]  = child;
+     }
+
+     cout << getMaxWidth(root) << endl;
+  }
+  return 0;
+}
+
+
+int getMaxWidth(Node* root)
+{
+    queue<Node*>q1;
+    queue<Node*>q2;
+    q1.push(root);
+    Node*curr=new Node(0);
+    int max=-1;
+   while(!q1.empty() || !q2.empty())
+   {
+       while(!q1.empty())
+       {
+           int max1=q1.size();
+           if(max1>max)
+           max=max1;
+           curr=q1.front();
+           q1.pop();
+           if(curr->left!=NULL)
+           q2.push(curr->left);
+           if(curr->right!=NULL)
+           q2.push(curr->right);
+           
+       }
+       
+       while(!q2.empty())
+       {
+           int max2=q2.size();
+           if(max2>max)
+           max=max2;
+           curr=q2.front();
+           q2.pop();
+           if(curr->left!=NULL)
+           q1.push(curr->left);
+           if(curr->right!=NULL)
+           q1.push(curr->right);
+           
+       }
+   }
+   return max;
+}
