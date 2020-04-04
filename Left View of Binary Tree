@@ -1,0 +1,114 @@
+Left View of Binary Tree 
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+
+
+void leftView(struct Node *root);
+
+
+int main()
+{
+  int t;
+  struct Node *child;
+  scanf("%d\n", &t);
+  while (t--)
+  {
+     map<int, Node*> m;
+     int n;
+     scanf("%d\n",&n);
+     struct Node *root = NULL;
+     while (n--)
+     {
+        Node *parent;
+        char lr;
+        int n1, n2;
+        scanf("%d %d %c", &n1, &n2, &lr);
+
+        if (m.find(n1) == m.end())
+        {
+           parent = new Node(n1);
+           m[n1] = parent;
+           if (root == NULL)
+             root = parent;
+        }
+        else
+           parent = m[n1];
+
+        child = new Node(n2);
+        if (lr == 'L')
+          parent->left = child;
+        else
+          parent->right = child;
+        m[n2]  = child;
+     }
+
+     leftView(root);
+     cout << endl;
+  }
+  return 0;
+}
+
+
+void leftView(Node *root)
+{
+   queue<Node*>q1;
+   queue<Node*>q2;
+   q1.push(root);
+   Node*curr;
+   int count1=1,count2=1;
+  // q2.push();
+   while(!q1.empty() || !q2.empty())
+   {
+       
+       while(!q1.empty())
+       {
+           count2=1;
+           
+           curr=q1.front();
+           if(count1==1)
+           {
+               cout<<curr->data<<" ";
+               --count1;
+           }
+           
+           if(curr->left!=NULL)
+           q2.push(curr->left);
+           if(curr->right!=NULL)
+           q2.push(curr->right);
+           q1.pop();
+           
+       }
+       
+        while(!q2.empty())
+       {
+           count1=1;
+           
+           curr=q2.front();
+           if(count2==1)
+           {
+               cout<<curr->data<<" ";
+               --count2;
+           }
+           
+           if(curr->left!=NULL)
+           q1.push(curr->left);
+           if(curr->right!=NULL)
+           q1.push(curr->right);
+           q2.pop();
+           
+           
+       }
+   }
+}
