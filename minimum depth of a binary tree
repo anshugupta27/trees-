@@ -1,0 +1,32 @@
+https://practice.geeksforgeeks.org/problems/minimum-depth-of-a-binary-tree/1
+
+
+
+
+
+
+int printpathrecur ( Node * node , int path[] , int pathlen , int &minlen  )
+{
+    if ( node == NULL )
+    return 0 ;
+    path[pathlen] = node -> data ;
+    pathlen++ ;
+    
+    if ( node -> left == NULL and node -> right == NULL )
+    {
+        minlen = min ( minlen , pathlen ) ;
+    }
+    
+    else
+    {
+        printpathrecur ( node -> left  , path , pathlen , minlen ) ;
+        printpathrecur ( node -> right , path , pathlen , minlen ) ;
+    }
+    return minlen ;
+}
+int minDepth(Node *node) {
+    
+    int path[1000000] ;
+    int minlen = INT_MAX ;
+    return printpathrecur ( node , path , 0 , minlen ) ;
+}
