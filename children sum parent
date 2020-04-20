@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/children-sum-parent/1
+
+
+int isSumProperty(Node *node)
+{
+    if ( node == NULL || (node -> left == NULL and node -> right == NULL ))
+    return 1 ;
+    int rightsum = 0 , leftsum = 0 ;
+    if ( node -> left )
+    leftsum =  node -> left -> data ;
+    if ( node -> right )
+    rightsum = node -> right -> data ;
+    if ( node -> data == leftsum + rightsum )
+    {
+        if (isSumProperty ( node -> left ) and isSumProperty ( node -> right ) )
+        return 1 ;
+        
+    }
+    return 0 ;
+}
