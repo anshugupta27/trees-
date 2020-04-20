@@ -1,0 +1,50 @@
+https://practice.geeksforgeeks.org/problems/max-level-sum-in-binary-tree/1
+
+
+
+int maxLevelSum(Node* root) {
+  
+    if ( root == NULL )
+    return root -> data  ;
+    queue < Node* > q1 , q2 ;
+    q1.push ( root ) ;
+    int Max = INT_MIN , sum = 0 ;
+    while ( !q1.empty() || !q2.empty() )
+    {
+         sum = 0 ;
+        while ( !q1.empty() ) 
+        {
+            Node * temp = q1.front() ;
+            sum = sum + temp -> data ;
+            q1.pop() ;
+            if ( temp -> right )
+            q2.push ( temp -> right ) ;
+            if ( temp -> left )
+            q2.push ( temp -> left ) ;
+            
+        }
+        Max = max ( Max , sum ) ;
+        int count = 1 ;
+        while ( !q2.empty() ) 
+        {
+            if ( count )
+            {
+                sum = 0 ; 
+                count-- ;
+            }
+            Node * temp = q2.front() ;
+            sum = sum + temp -> data ;
+            q2.pop() ;
+            if ( temp -> right )
+            q1.push ( temp -> right ) ;
+            if ( temp -> left )
+            q1.push ( temp -> left ) ;
+            
+        }
+        Max = max ( Max , sum ) ;
+       
+        
+        
+    }
+    return Max ;
+}
