@@ -1,0 +1,45 @@
+https://practice.geeksforgeeks.org/problems/check-if-two-nodes-are-cousins/1
+
+
+bool isCousins(Node *root, int x, int y)
+{
+   if ( !root )
+   return false ;
+   int flag = 0 ;
+   queue < Node * > q ;
+   q.push ( root ) ;
+   while ( !q.empty() ) 
+   {
+       int count = q.size() ;
+       flag = 0 ;
+       while ( count-- )
+       {
+           Node * temp = q.front() ;
+           q.pop() ;
+           int a = 0 , b = 0 ;
+           if ( temp -> left )
+           {
+               q.push ( temp -> left ) ;
+               a = temp -> left -> data ;
+           }
+           if ( temp -> right )
+           {
+               q.push ( temp -> right ) ;
+               b = temp -> right -> data ;
+           }
+           if ( ( x == a and y != b ) || ( x == b and y != a ))
+           flag = flag + 1  ;
+           else
+           if ( ( x != a and y == b ) || ( x != b and y == a ))
+           flag = flag + 1 ;
+           
+           
+       }
+       if ( flag == 1 )
+       return false ;
+       else
+       if ( flag == 2 )
+       return true ;
+   }
+   
+}
