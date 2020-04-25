@@ -1,0 +1,21 @@
+https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1
+
+
+
+
+bool isHeap(Node * tree)
+{
+    int dataL = 0 , dataR = 0 ;
+     if ( tree == NULL || ( tree -> left == NULL and tree -> right == NULL ))
+     return true ;
+     if ( tree -> left )
+     dataL = tree -> left -> data ;
+     if ( tree -> right )
+     dataR = tree -> right -> data ;
+     if ( tree -> data > dataL and tree -> data > dataR and isHeap ( tree -> left ) and isHeap ( tree -> right ) )
+     {
+        
+         return true ;
+     }
+     return false ;
+}
