@@ -1,0 +1,15 @@
+https://practice.geeksforgeeks.org/problems/count-non-leaf-nodes-in-tree/1
+
+
+
+
+int countNonLeafNodes(Node* root)
+{
+    if ( root == NULL )
+    return 0 ;
+    if ( !root -> right and !root -> left )
+    return 0 ;
+    
+    
+    return countNonLeafNodes ( root -> left ) + countNonLeafNodes ( root -> right ) + 1 ;
+}
