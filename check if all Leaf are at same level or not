@@ -1,0 +1,35 @@
+https://practice.geeksforgeeks.org/problems/leaf-at-same-level/1
+
+
+
+
+
+bool check(Node *root)
+{
+    if ( root == NULL )
+    return 1 ;
+    queue < Node* > q ;
+    
+    q.push ( root ) ;
+    while ( 1 )
+    {
+        int leaf = 0 ;
+        int t = q.size() ;
+        while ( t-- )
+        {
+            Node *p = q.front() ;
+            q.pop() ;
+            if ( p -> left == NULL and p-> right == NULL )
+            leaf++ ;
+            if ( p -> left )
+            q.push ( p -> left ) ;
+            if ( p -> right ) 
+            q.push ( p -> right ) ;
+        }
+        if ( leaf and !q.empty() )
+        return 0 ;
+        if ( leaf and q.empty() ) 
+        return 1 ;
+        
+    }
+}
