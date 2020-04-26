@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/sum-of-right-leaf-nodes/1
+
+
+
+void rightLeafSumUtil (Node* root , int &sum )
+{
+     if ( !root || ( !root -> left and !root -> right ))
+     return  ;
+     if ( root -> right )
+     {
+         
+         if ( root -> right -> left == NULL and root -> right -> right == NULL)
+         {
+            
+                 sum = sum + root -> right -> data ;
+             
+         }
+         
+     }
+     rightLeafSumUtil ( root -> left  , sum ) ;
+     rightLeafSumUtil ( root -> right , sum ) ;
+}
+int rightLeafSum ( Node * root ) 
+{
+    int sum = 0 ;
+    rightLeafSumUtil ( root , sum ) ;
+    return sum ;
+}
