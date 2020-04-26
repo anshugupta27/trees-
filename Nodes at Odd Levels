@@ -1,0 +1,40 @@
+https://practice.geeksforgeeks.org/problems/nodes-at-odd-levels/1
+
+
+
+
+
+void printOddNodes(Node *root)
+{
+    if ( !root )
+    {cout << endl ;
+    return ;
+    }
+    queue < Node * > q1 , q2  ;
+    q1.push ( root ) ;
+    while ( !q1.empty() || !q2.empty() )
+    {
+        while ( !q1.empty() )
+        {
+            Node * temp = q1.front() ;
+            q1.pop() ;
+            cout << temp -> data << " " ;
+            if ( temp -> left )
+            q2.push ( temp -> left ) ;
+            if ( temp -> right )
+            q2.push ( temp -> right ) ;
+        }
+        while ( !q2.empty() ) 
+        {
+            Node *temp = q2.front() ;
+            q2.pop() ;
+            if ( temp -> left )
+            q1.push ( temp -> left ) ;
+            if ( temp -> right )
+            q1.push ( temp -> right ) ;
+        }
+        
+        
+    }
+    cout << endl ;
+}
